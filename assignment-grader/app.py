@@ -42,9 +42,9 @@ def extract_text_from_file(uploaded_file):
 
 # Create sidebar for API keys
 st.sidebar.title("API Settings")
-gemini_api_key = st.sidebar.text_input("Gemini API Key", value="AIzaSyBYJ0yJql46YyNvvMGtlXSFmxHldsbVLXs", type="password")
-google_api_key = st.sidebar.text_input("Google API Key", value="AIzaSyB8AyJTtX-QuYoJj4p4l6XenwxtNdBi7gI", type="password")
-search_engine_id = st.sidebar.text_input("Search Engine ID", value="c49d69c0e30314410")
+gemini_api_key = st.sidebar.text_input("Gemini API Key", value="", type="password")
+google_api_key = st.sidebar.text_input("Google API Key", value="", type="password")
+search_engine_id = st.sidebar.text_input("Search Engine ID", value="")
 
 # Main title
 st.title("📚 Assignment Grader")
