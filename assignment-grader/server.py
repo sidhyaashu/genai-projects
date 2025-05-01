@@ -17,9 +17,9 @@ logger = logging.getLogger(__name__)
 # Config class
 class Settings:
     def __init__(self):
-        self.gemini_api_key = "AIzaSyBYJ0yJql46YyNvvMGtlXSFmxHldsbVLXs"
-        self.google_api_key = "AIzaSyB8AyJTtX-QuYoJj4p4l6XenwxtNdBi7gI"
-        self.search_engine_id = "c49d69c0e30314410"
+        self.gemini_api_key = ""
+        self.google_api_key = ""
+        self.search_engine_id = ""
 
 # Log config
 settings = Settings()
