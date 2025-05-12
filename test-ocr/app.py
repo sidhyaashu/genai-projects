@@ -291,7 +291,7 @@ with tab1:
             progress_bar.progress(1.0)
             status_text.text("✅ Processing complete!")
             time.sleep(1)
-            st.experimental_rerun()
+            st.rerun()
 
 with tab2:
     if st.session_state["ocr_result"]:
@@ -300,15 +300,32 @@ with tab2:
                 col1, col2 = st.columns(2)
                 
                 with col1:
-                    st.markdown(f'<h4 style="color: #4b6cb7;">📄 Input Document</h4>', unsafe_allow_html=True)
+                    st.markdown('<h4 style="color: #4b6cb7;">📄 Input Document</h4>', unsafe_allow_html=True)
+                    
+                    # Safely fetch preview_src list and current index item
+                    preview_list = st.session_state.get("preview_src", [])
+                    preview_src = preview_list[idx] if idx < len(preview_list) else None
+
                     if file_type == "PDF":
-                        pdf_embed_html = f'<iframe src="{st.session_state["preview_src"][idx]}" width="100%" height="600" frameborder="0"></iframe>'
-                        st.markdown(pdf_embed_html, unsafe_allow_html=True)
-                    else:
-                        if source_type == "Local Upload" and idx < len(st.session_state["image_bytes"]):
-                            st.image(st.session_state["image_bytes"][idx], use_column_width=True)
+                        if preview_src:
+                            pdf_embed_html = f'<iframe src="{preview_src}" width="100%" height="600" frameborder="0"></iframe>'
+                            st.markdown(pdf_embed_html, unsafe_allow_html=True)
                         else:
-                            st.image(st.session_state["preview_src"][idx], use_column_width=True)
+                            st.warning("⚠️ PDF preview not available.")
+                    else:
+                        if source_type == "Local Upload":
+                            image_list = st.session_state.get("image_bytes", [])
+                            if idx < len(image_list):
+                                st.image(image_list[idx], use_container_width =True)
+                            elif preview_src:
+                                st.image(preview_src, use_container_width =True)
+                            else:
+                                st.warning("⚠️ Image preview not available.")
+                        else:
+                            if preview_src:
+                                st.image(preview_src, use_container_width =True)
+                            else:
+                                st.warning("⚠️ Image preview not available.")
                 
                 with col2:
                     st.markdown(f'<h4 style="color: #4b6cb7;">📝 Extracted Text</h4>', unsafe_allow_html=True)
